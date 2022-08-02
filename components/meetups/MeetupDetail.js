@@ -1,3 +1,4 @@
+import { getStaticProps } from '../../pages';
 import classes from './MeetupDetail.module.css'
 
 function MeetupDetail(props) {
