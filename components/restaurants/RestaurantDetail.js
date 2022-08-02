@@ -1,7 +1,7 @@
 import { getStaticProps } from '../../pages';
-import classes from './MeetupDetail.module.css'
+import classes from './RestaurantDetail.module.css'
 
-function MeetupDetail(props) {
+function RestaurantDetail(props) {
   return (
     <section className={classes.detail}>
       <img
@@ -15,4 +15,4 @@ function MeetupDetail(props) {
   );
 }
 
-export default MeetupDetail;
+export default RestaurantDetail;

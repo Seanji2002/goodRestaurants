@@ -1,15 +1,15 @@
 import { Fragment } from "react";
-import MeetupDetail from "../../components/meetups/MeetupDetail";
+import RestaurantDetail from "../../components/restaurants/RestaurantDetail";
 import { MongoClient, ObjectId } from "mongodb";
 
-function MeetupDetails(props) {
+function RestaurantDetails(props) {
   return (
-    <MeetupDetail
-      image={props.meetupData.image}
-      title={props.meetupData.title}
-      address={props.meetupData.address}
-      description={props.meetupData.description}
-    ></MeetupDetail>
+    <RestaurantDetail
+      image={props.restaurantData.image}
+      title={props.restaurantData.title}
+      address={props.restaurantData.address}
+      description={props.restaurantData.description}
+    ></RestaurantDetail>
   );
 }
 
@@ -20,23 +20,23 @@ export async function getStaticPaths() {
 
   const db = client.db();
 
-  const meetupsCollection = db.collection("meetups");
+  const restaurantsCollection = db.collection("restaurants");
 
-  const meetups = await meetupsCollection.find({}, { _id: 1 }).toArray();
+  const restaurants = await restaurantsCollection.find({}, { _id: 1 }).toArray();
 
   client.close();
 
   return {
     fallback: false,
-    paths: meetups.map((meetup) => ({
-      params: { meetupID: meetup._id.toString() },
+    paths: restaurants.map((restaurant) => ({
+      params: { restaurantID: restaurant._id.toString() },
     })),
   };
 }
 
 export async function getStaticProps(context) {
-  // fetch data for a single meetup
-  const meetupID = context.params.meetupID;
+  // fetch data for a single restaurant
+  const restaurantID = context.params.restaurantID;
 
   const client = await MongoClient.connect(
     "mongodb+srv://creater-jsy:test123@cluster0.mhkhd.mongodb.net/?retryWrites=true&w=majority"
@@ -44,23 +44,23 @@ export async function getStaticProps(context) {
 
   const db = client.db();
 
-  const meetupsCollection = db.collection("meetups");
+  const restaurantsCollection = db.collection("restaurants");
 
-  const selectedMeetup = await meetupsCollection.findOne({ _id: ObjectId(meetupID) });
+  const selectedRestaurant = await restaurantsCollection.findOne({ _id: ObjectId(restaurantID) });
 
   client.close();
 
   return {
     props: {
-      meetupData: {
-        id: selectedMeetup._id.toString(),
-        title: selectedMeetup.title,
-        address: selectedMeetup.address,
-        image: selectedMeetup.image,
-        description: selectedMeetup.description,
+      restaurantData: {
+        id: selectedRestaurant._id.toString(),
+        title: selectedRestaurant.title,
+        address: selectedRestaurant.address,
+        image: selectedRestaurant.image,
+        description: selectedRestaurant.description,
       },
     },
   };
 }
 
-export default MeetupDetails;
+export default RestaurantDetails;

@@ -1,9 +1,9 @@
 import { MongoClient } from "mongodb";
-import MeetupList from "../components/meetups/MeetupList";
-import NewMeetupPage from "./new-meetup";
+import RestaurantList from "../components/restaurants/RestaurantList";
+import NewRestaurantPage from "./new-restaurant";
 
 function HomePage(props) {
-  return <MeetupList meetups={props.meetups}></MeetupList>;
+  return <RestaurantList restaurants={props.restaurants}></RestaurantList>;
 }
 
 export async function getStaticProps() {
@@ -14,19 +14,19 @@ export async function getStaticProps() {
 
   const db = client.db();
 
-  const meetupsCollection = db.collection("meetups");
+  const restaurantsCollection = db.collection("restaurants");
 
-  const meetups = await meetupsCollection.find().toArray();
+  const restaurants = await restaurantsCollection.find().toArray();
 
   client.close();
 
   return {
     props: {
-      meetups: meetups.map((meetup) => ({
-        title: meetup.title,
-        address: meetup.address,
-        image: meetup.image,
-        id: meetup._id.toString(),
+      restaurants: restaurants.map((restaurant) => ({
+        title: restaurant.title,
+        address: restaurant.address,
+        image: restaurant.image,
+        id: restaurant._id.toString(),
       })),
     },
     revalidate: 100,
