@@ -5,7 +5,7 @@ function MainNavigation() {
 
   return (
     <header className={classes.header}>
-      <div className={classes.logo}>React Restaurants</div>
+      <div className={classes.logo}>GUD Restaurants</div>
       <nav>
         <ul>
           <li>
