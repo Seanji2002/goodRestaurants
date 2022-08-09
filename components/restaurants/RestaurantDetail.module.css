@@ -12,6 +12,7 @@
   color: black;
   border: 2px solid #c2330f;
   transition-duration: 0.4s;
+  cursor: pointer;
 }
 
 .button:hover {
