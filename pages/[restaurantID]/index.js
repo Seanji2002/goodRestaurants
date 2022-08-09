@@ -1,10 +1,28 @@
 import { Fragment } from "react";
 import RestaurantDetail from "../../components/restaurants/RestaurantDetail";
 import { MongoClient, ObjectId } from "mongodb";
+import { useRouter } from "next/router";
 
 function RestaurantDetails(props) {
+  const router = useRouter();
+  async function deleteRestaurantHandler(enteredRestaurantData) {
+    const response = await fetch("/api/delete-restaurant", {
+      method: "DELETE",
+      body: JSON.stringify(enteredRestaurantData),
+      headers: {
+        "Content-Type": "application.json",
+      },
+    });
+
+    const data = await response.json();
+    console.log(data);
+    router.push("/");
+  }
+
   return (
     <RestaurantDetail
+      onDeleteRestaurant={deleteRestaurantHandler}
+      _id={props.restaurantData.id}
       image={props.restaurantData.image}
       title={props.restaurantData.title}
       address={props.restaurantData.address}
@@ -22,7 +40,9 @@ export async function getStaticPaths() {
 
   const restaurantsCollection = db.collection("restaurants");
 
-  const restaurants = await restaurantsCollection.find({}, { _id: 1 }).toArray();
+  const restaurants = await restaurantsCollection
+    .find({}, { _id: 1 })
+    .toArray();
 
   client.close();
 
@@ -46,7 +66,9 @@ export async function getStaticProps(context) {
 
   const restaurantsCollection = db.collection("restaurants");
 
-  const selectedRestaurant = await restaurantsCollection.findOne({ _id: ObjectId(restaurantID) });
+  const selectedRestaurant = await restaurantsCollection.findOne({
+    _id: ObjectId(restaurantID),
+  });
 
   client.close();
 

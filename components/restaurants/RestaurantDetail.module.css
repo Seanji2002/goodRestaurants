@@ -1,7 +1,20 @@
-.detail img{
-    width: 100%;
+.detail img {
+  width: 100%;
 }
 
 .detail {
-    text-align: center;
+  text-align: center;
+}
+
+.button {
+  background-color: white;
+  padding: 12px 20px;
+  color: black;
+  border: 2px solid #c2330f;
+  transition-duration: 0.4s;
+}
+
+.button:hover {
+  background-color: #c2330f;
+  color: white;
 }
