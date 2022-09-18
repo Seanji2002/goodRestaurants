@@ -7,7 +7,7 @@ async function handler(req, res) {
     if (req.method === 'DELETE') {
         const data = req.body;
 
-        const client = await MongoClient.connect(env(MONGO_DB));
+        const client = await MongoClient.connect(process.env.MONGO_DB);
         const db = client.db();
 
         const restaurantsCollection = db.collection('restaurants');

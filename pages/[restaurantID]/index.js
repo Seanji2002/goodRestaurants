@@ -59,7 +59,7 @@ export async function getServerSideProps(context) {
   const restaurantID = context.params.restaurantID;
 
   const client = await MongoClient.connect(
-    "mongodb+srv://creater-jsy:test123@cluster0.mhkhd.mongodb.net/?retryWrites=true&w=majority"
+    process.env.MONGO_DB
   );
 
   const db = client.db();
