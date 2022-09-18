@@ -6,7 +6,7 @@ async function handler(req, res) {
     if (req.method === 'POST') {
         const data = req.body;
 
-        const client = await MongoClient.connect('mongodb+srv://creater-jsy:test123@cluster0.mhkhd.mongodb.net/?retryWrites=true&w=majority');
+        const client = await MongoClient.connect(env(MONGO_DB));
         const db = client.db();
 
         const restaurantsCollection = db.collection('restaurants');
